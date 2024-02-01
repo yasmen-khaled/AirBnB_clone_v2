@@ -9,13 +9,13 @@ env.hosts = ["18.210.16.58", "100.24.238.235"]
 
 def do_pack():
     """Create a tar gzipped archive of the directory web_static."""
-    d = datetime.utcnow()
-    f = "versions/web_static_{}{}{}{}{}{}.tgz".format(d.year,
-                                                         d.month,
-                                                         d.day,
-                                                         d.hour,
-                                                         d.minute,
-                                                         d.second)
+    x = datetime.utcnow()
+    f = "versions/web_static_{}{}{}{}{}{}.tgz".format(x.year,
+                                                         x.month,
+                                                         x.day,
+                                                         x.hour,
+                                                         x.minute,
+                                                         x.second)
     if os.path.isdir("versions") is False:
         if local("mkdir -p versions").failed is True:
             return None
@@ -35,37 +35,37 @@ def do_deploy(archive_path):
     if os.path.isfile(archive_path) is False:
         return False
     f = archive_path.split("/")[-1]
-    name = f.split(".")[0]
+    n = f.split(".")[0]
 
     if put(archive_path, "/tmp/{}".format(f)).failed is True:
         return False
     if run("rm -rf /data/web_static/releases/{}/".
-           format(name)).failed is True:
+           format(n)).failed is True:
         return False
     if run("mkdir -p /data/web_static/releases/{}/".
-           format(name)).failed is True:
+           format(n)).failed is True:
         return False
     if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-           format(f, name)).failed is True:
+           format(f, n)).failed is True:
         return False
     if run("rm /tmp/{}".format(f)).failed is True:
         return False
     if run("mv /data/web_static/releases/{}/web_static/* "
-           "/data/web_static/releases/{}/".format(name, name)).failed is True:
+           "/data/web_static/releases/{}/".format(n, n)).failed is True:
         return False
     if run("rm -rf /data/web_static/releases/{}/web_static".
-           format(name)).failed is True:
+           format(n)).failed is True:
         return False
     if run("rm -rf /data/web_static/current").failed is True:
         return False
     if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
-           format(name)).failed is True:
+           format(n)).failed is True:
         return False
     return True
 
 
 def deploy():
-    """Create and distribute an archive to a web server."""
+    """server."""
     f = do_pack()
     if f is None:
         return False
