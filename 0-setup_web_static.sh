@@ -1,4 +1,5 @@
-nx
+#!/usr/bin/env bash
+# nginx
 # update  
 apt-get update
 # install nginx
@@ -14,26 +15,26 @@ chgrp -R ubuntu /data/
 # server
 printf %s "server {
     listen 80 default_server;
-        listen [::]:80 default_server;
-	    add_header X-Served-By $HOSTNAME;
-	        root   /var/www/html;
-		    index  index.html index.htm;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root   /var/www/html;
+    index  index.html index.htm;
 
-		        location /hbnb_static {
-				alias /data/web_static/current;
-					index index.html index.htm;
-					    }
+    location /hbnb_static {
+	alias /data/web_static/current;
+	index index.html index.htm;
+    }
 
-					            location /redirect_me {
-						    	return 301 http://cuberule.com/;
-							    }
+        location /redirect_me {
+	return 301 http://cuberule.com/;
+    }
 
-							        error_page 404 /404.html;
-								    location /404 {
-								          root /var/www/html;
-									        internal;
-										    }
-									    }" > /etc/nginx/sites-available/default
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}" > /etc/nginx/sites-available/default
 
-									    # restart nginx
-									    service nginx restart
+# restart nginx
+service nginx restart
