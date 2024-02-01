@@ -7,31 +7,8 @@ from fabric.api import env, local, put, run
 env.hosts = ["100.24.238.235", "18.210.16.58"]
 
 
-def do_pack():
-    """Create a tar gzipped archive of the directory web_static."""
-    x = datetime.utcnow()
-    f = "versions/web_static_{}{}{}{}{}{}.tgz".format(x.year,
-                                                         x.month,
-                                                         x.day,
-                                                         x.hour,
-                                                         x.minute,
-                                                         x.second)
-    if os.path.isdir("versions") is False:
-        if local("mkdir -p versions").failed is True:
-            return None
-    if local("tar -cvzf {} web_static".format(f)).failed is True:
-        return None
-    return f
-
-
 def do_deploy(archive_path):
-    """Distributes an archive to a web server.
-    Args:
-        archive_path (str): The path of the archive to distribute.
-    Returns:
-        If the file doesn't exist at archive_path or an error occurs - False.
-        Otherwise - True.
-    """
+    """Distribute """
     if os.path.isfile(archive_path) is False:
         return False
     f = archive_path.split("/")[-1]
@@ -62,11 +39,3 @@ def do_deploy(archive_path):
            format(n)).failed is True:
         return False
     return True
-
-
-def deploy():
-    """server."""
-    f = do_pack()
-    if f is None:
-        return False
-    return do_deploy(f)
