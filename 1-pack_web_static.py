@@ -10,7 +10,7 @@ import os.path as v
 def do_pack():
     """tar"""
     x = datetime.utcnow()
-    file = "versions/web_static_{}{}{}{}{}{}.tgz".format(x.year,
+    f= "versions/web_static_{}{}{}{}{}{}.tgz".format(x.year,
                                                          x.month,
                                                          x.day,
                                                          x.hour,
@@ -20,7 +20,7 @@ def do_pack():
         if local("mkdir -p versions").failed is True:
             return None
             
-    if local("tar -cvzf {} web_static".format(file)).failed is True:
+    if local("tar -cvzf {} web_static".format(f)).failed is True:
         return None
         
-    return file
+    return f
