@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 # Fabfile to generates a .tgz archive
-
 from datetime import datetime
 from fabric.api import local
-import os.path as v
+import os.path as local
 
 
 
