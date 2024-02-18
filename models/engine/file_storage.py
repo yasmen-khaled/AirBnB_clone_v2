@@ -68,5 +68,5 @@ class FileStorage:
             del self.__objects[dict_key]
 
     def close(self):
-        """ calls re""
+        """ calls re"""
         self.reload()
