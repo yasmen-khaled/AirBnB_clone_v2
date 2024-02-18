@@ -63,6 +63,7 @@ class FileStorage:
             if key in self.__objects:
                 del self.__objects[key]
 
-    def close(self):
-        """call reload() """
-        self.reload()
+   @app.teardown_appcontext
+def close_session(exception=None):
+    """Close"""
+    storage.close()
