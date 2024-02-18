@@ -23,7 +23,7 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            """returns list of Cities and some relationships"""
+            """returns"""
             cities_instances = []
             cities_dict = models.storage.all(models.City)
             for key, value in cities_dict.items():
