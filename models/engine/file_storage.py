@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""FileStorage class"""
+"""Contains"""
 
 import json
 from models.amenity import Amenity
@@ -33,7 +33,7 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        """sets """
+        """sets"""
         if obj is not None:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
@@ -57,13 +57,12 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """delete obj """
+        """delete"""
         if obj is not None:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in self.__objects:
                 del self.__objects[key]
 
-   @app.teardown_appcontext
-def close_session(exception=None):
-    """Close"""
-    storage.close()
+    def close(self):
+        """call reload()"""
+        self.reload()
